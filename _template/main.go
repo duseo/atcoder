@@ -182,3 +182,27 @@ func intSliceToString(x []int) string {
 	}
 	return strings.Join(s, " ")
 }
+
+func binarySearch(l, r int, left bool) int {
+	for r-l > 1 {
+		mid := (r + l) / 2
+		if good(mid) {
+			r = mid
+		} else {
+			l = mid
+		}
+	}
+
+	if left {
+		return l
+	}
+
+	return r
+}
+
+func good(n int) bool {
+	if n > 5 {
+		return true
+	}
+	return false
+}

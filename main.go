@@ -14,12 +14,6 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	rows, cols, n := ni3()
-	h, w := ni2()
-	grid := make([][]int, rows)
-	for i := 0; i < rows; i++ {
-		grid[i] = nis(cols)
-	}
 
 }
 
