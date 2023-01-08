@@ -36,31 +36,11 @@ func handleTest(n int) {
             return
         } else {
             q = i
-            p := exactSqrt(n/i)
+            p := isqrt(n/i)
             fmt.Println(p, q)
             return
         }
     }
-}
-
-func exactSqrt(n int) int{
-    tmp := int(math.Sqrt(float64(n)))
-    if n%tmp == 0 {
-        return tmp
-    } else {
-        if n%(tmp+1) == 0 {
-            return tmp+1
-        }
-    }
-    return tmp-1
-}
-
-func rec(k int) int {
-	if k == 0 {
-		return 1
-	}
-
-	return k * rec(k-1)
 }
 
 // ==================================================
@@ -252,3 +232,12 @@ func tdm(n, m int) [][]int {
 	}
 	return tmp
 }
+
+func isqrt(n int) int {
+    guess := int(math.Sqrt(float64(n)))
+    if guess * guess == n {
+        return guess
+    }
+    return guess+1 
+}
+
