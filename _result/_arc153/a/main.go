@@ -14,55 +14,15 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-    n := ni()
+	n := ni()
+	str := itoa(100000 + n - 1)
+	res := []byte{str[0], str[0], str[1], str[2], str[3], str[3], str[4], str[5], str[4]}
+	fmt.Println(string(res))
+}
 
-    next := func(arr []int) {
-       if arr[7] != 9 { 
-           arr[7]++
-       } else if arr[8] != 9 {
-           arr[6]++
-           arr[8]++ 
-           arr[7] = 0
-       } else if arr[5] != 9 {
-           arr[5]++
-           arr[4]++
-           arr[6] = 0
-           arr[7] = 0
-           arr[8] = 0
-       } else if arr[3] != 9 {
-           arr[3]++
-           arr[4] = 0
-           arr[5] = 0
-           arr[6] = 0
-           arr[7] = 0
-           arr[8] = 0
-       } else if arr[2] != 9 {
-           arr[2]++
-           arr[3] = 0
-           arr[4] = 0
-           arr[5] = 0
-           arr[6] = 0
-           arr[7] = 0
-           arr[8] = 0
-       } else if arr[1] != 9 {
-           arr[1]++
-           arr[0]++
-           arr[2] = 0
-           arr[3] = 0
-           arr[4] = 0
-           arr[5] = 0
-           arr[6] = 0
-           arr[7] = 0
-           arr[8] = 0
-       }
-    }
-
-    current := []int {1,1,0,0,0,0,0,0,0}
-    for i := 1; i < n; i++ {
-       next(current) 
-    }
-
-    fmt.Println(intSliceToString(current))
+type pair struct {
+	i int
+	j int
 }
 
 func rec(k int) int {
@@ -228,7 +188,7 @@ func intSliceToString(x []int) string {
 	for _, v := range x {
 		s = append(s, itoa(v))
 	}
-	return strings.Join(s, "")
+	return strings.Join(s, " ")
 }
 
 func binarySearch(l, r int, left bool) int {
@@ -255,10 +215,10 @@ func good(n int) bool {
 	return false
 }
 
-func tdm(n,m int) [][]int {
-    tmp := make([][]int, n)
-    for i := 0; i < n; i++ {
-       tmp[i] = make([]int, m) 
-    }
-    return tmp
+func tdm(n, m int) [][]int {
+	tmp := make([][]int, n)
+	for i := 0; i < n; i++ {
+		tmp[i] = make([]int, m)
+	}
+	return tmp
 }
