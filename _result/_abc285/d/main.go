@@ -14,61 +14,9 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n := scani()
-	uf := unionFind{0, make(map[string]string)}
-
-	req := make(map[string]string)
-
-	for i := 0; i < n; i++ {
-		s := scans()
-		t := scans()
-		req[s] = t
-		uf.SetInit(s)
-		uf.SetInit(t)
-	}
-
-	for n1, n2 := range req {
-		if uf.IsConnected(n1, n2) {
-			printyn(false)
-			return
-		}
-		uf.Union(n1, n2)
-
-	}
-
-	printyn(true)
-
-}
-
-type unionFind struct {
-	count   int
-	parents map[string]string
-}
-
-func (this *unionFind) SetInit(x string) {
-	if this.parents[x] == "" {
-		this.parents[x] = x
-	}
-}
-
-func (this *unionFind) IsConnected(x, y string) bool {
-	return this.Find(x) == this.Find(y)
-}
-
-func (this *unionFind) Find(x string) string {
-	if x == this.parents[x] {
-		return x
-	}
-	this.parents[x] = this.Find(this.parents[x])
-	return this.parents[x]
-}
-
-func (this *unionFind) Union(x, y string) {
-	rx, ry := this.Find(x), this.Find(y)
-	if rx != ry {
-		this.parents[rx] = ry
-		this.count--
-	}
+    n, m := ni2()
+    x := tdm(n,m)
+    fmt.Println(x)
 }
 
 func rec(k int) int {
@@ -261,10 +209,10 @@ func good(n int) bool {
 	return false
 }
 
-func tdm(n, m int) [][]int {
-	tmp := make([][]int, n)
-	for i := 0; i < n; i++ {
-		tmp[i] = make([]int, m)
-	}
-	return tmp
+func tdm(n,m int) [][]int {
+    tmp := make([][]int, n)
+    for i := 0; i < n; i++ {
+       tmp[i] = make([]int, m) 
+    }
+    return tmp
 }
