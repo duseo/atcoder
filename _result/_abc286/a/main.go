@@ -14,8 +14,21 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	a, b := ni2()
-	printyn(b == 2*a || b == (2*a)+1)
+	n := ni()
+	p, q, r, s := ni4()
+	arr := nis(n)
+	p--
+	q--
+	r--
+	s--
+	for i := p; i <= q; i++ {
+		tmp := arr[i]
+		arr[i] = arr[r]
+		arr[r] = tmp
+		r++
+	}
+
+	fmt.Println(intSliceToString(arr))
 }
 
 func rec(k int) int {
