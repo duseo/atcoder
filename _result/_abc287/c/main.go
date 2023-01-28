@@ -14,30 +14,50 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n := scani()
-	m := scani()
-	mm := make(map[string]bool)
-	list := make([]string, n)
+	n, m := ni2()
+	g := make(map[int][]int)
 
-	for i := 0; i < n; i++ {
-		tmp := scans()
-		list[i] = tmp[3:]
+	addEdge := func(x, y int) {
+		g[x] = append(g[x], y)
+		g[y] = append(g[y], x)
 	}
 
 	for i := 0; i < m; i++ {
-		tmp := scans()
-		mm[tmp] = true
+		a, b := ni2()
+		a--
+		b--
+		addEdge(a, b)
 	}
 
-	res := 0
-	for i := 0; i < n; i++ {
-		if mm[list[i]] {
-			res++
+	vis := make([]bool, n)
+
+	var dfs func(x int)
+	dfs = func(x int) {
+		if len(g[x]) > 2 || vis[x] {
+			return
+		}
+
+		vis[x] = true
+
+		for i := 0; i < len(g[x]); i++ {
+			dfs(g[x][i])
 		}
 	}
 
-	fmt.Println(res)
+	for i := 0; i < n; i++ {
+		if len(g[i]) == 1 {
+			dfs(i)
+		}
+	}
 
+	for i := 0; i < n; i++ {
+		if !vis[i] {
+			fmt.Println("No")
+			return
+		}
+	}
+
+	fmt.Println("Yes")
 }
 
 func rec(k int) int {
