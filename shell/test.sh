@@ -4,6 +4,7 @@ mode=$(cat ./.mode)
 sendfile=""
 
 if test "$mode" = "go" ; then
+  go build main.go
   oj t -c "./main"
 fi
 

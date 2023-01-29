@@ -14,7 +14,9 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-
+	n, m := ni2()
+	x := tdm(n, m)
+	fmt.Println(x)
 }
 
 func rec(k int) int {
@@ -45,6 +47,15 @@ func ni() int {
 		panic(e)
 	}
 	return i
+}
+
+func ns() string {
+	sc.Scan()
+	return sc.Text()
+}
+
+func ns2() (string, string) {
+	return ns(), ns()
 }
 
 func ni2() (int, int) {
@@ -205,4 +216,12 @@ func good(n int) bool {
 		return true
 	}
 	return false
+}
+
+func tdm(n, m int) [][]int {
+	tmp := make([][]int, n)
+	for i := 0; i < n; i++ {
+		tmp[i] = make([]int, m)
+	}
+	return tmp
 }
