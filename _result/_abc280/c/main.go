@@ -14,21 +14,14 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	s := scans()
-	t := scans()
-
-	if s == t {
-		fmt.Println(-1)
-	}
-
-	for i := 0; i < len(s); i++ {
+	s, t := ns2()
+	s = s + "?"
+	for i := 0; i < len(t); i++ {
 		if s[i] != t[i] {
 			fmt.Println(i + 1)
 			return
 		}
 	}
-
-	fmt.Println(len(t))
 }
 
 func rec(k int) int {
@@ -59,6 +52,15 @@ func ni() int {
 		panic(e)
 	}
 	return i
+}
+
+func ns() string {
+	sc.Scan()
+	return sc.Text()
+}
+
+func ns2() (string, string) {
+	return ns(), ns()
 }
 
 func ni2() (int, int) {
@@ -195,4 +197,36 @@ func intSliceToString(x []int) string {
 		s = append(s, itoa(v))
 	}
 	return strings.Join(s, " ")
+}
+
+func binarySearch(l, r int, left bool) int {
+	for r-l > 1 {
+		mid := (r + l) / 2
+		if good(mid) {
+			r = mid
+		} else {
+			l = mid
+		}
+	}
+
+	if left {
+		return l
+	}
+
+	return r
+}
+
+func good(n int) bool {
+	if n > 5 {
+		return true
+	}
+	return false
+}
+
+func tdm(n, m int) [][]int {
+	tmp := make([][]int, n)
+	for i := 0; i < n; i++ {
+		tmp[i] = make([]int, m)
+	}
+	return tmp
 }
