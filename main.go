@@ -14,8 +14,9 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	s, t := ns2()
-	fmt.Println(s, t)
+	n, m := ni2()
+	x := tdm(n, m)
+	fmt.Println(x)
 }
 
 func rec(k int) int {
@@ -223,4 +224,53 @@ func tdm(n, m int) [][]int {
 		tmp[i] = make([]int, m)
 	}
 	return tmp
+}
+
+type dsu struct {
+	id    []int
+	sz    []int
+	count int
+}
+
+func newDsu(n int) *dsu {
+	newDsu := dsu{}
+	newDsu.count = n
+	newDsu.id = make([]int, n)
+	for i := 0; i < n; i++ {
+		newDsu.id[i] = i
+	}
+
+	newDsu.sz = make([]int, n)
+	for i := 0; i < n; i++ {
+		newDsu.sz[i] = 1
+	}
+	return &newDsu
+}
+
+func (uf dsu) connected(q, p int) bool {
+	return uf.find(q) == uf.find(p)
+}
+
+func (uf dsu) find(p int) int {
+	for p != uf.id[p] {
+		p = uf.id[p]
+	}
+	return p
+}
+
+func (uf dsu) union(p, q int) {
+	i := uf.find(p)
+	j := uf.find(q)
+	if i == j {
+		return
+	}
+
+	if uf.sz[i] < uf.sz[j] {
+		uf.id[i] = j
+		uf.sz[j] += uf.sz[i]
+	} else {
+		uf.id[j] = i
+		uf.sz[i] += uf.sz[j]
+	}
+	uf.count--
 }
