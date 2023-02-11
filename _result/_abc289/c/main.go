@@ -14,11 +14,31 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	s := ns()
-	s = strings.Replace(s, "0", "x", -1)
-	s = strings.Replace(s, "1", "0", -1)
-	s = strings.Replace(s, "x", "1", -1)
-	fmt.Println(s)
+	n, m := ni2()
+	sets := make([][]int, m)
+	for i := 0; i < m; i++ {
+		c := ni()
+		tmp := nis(c)
+		sets[i] = append(sets[i], tmp...)
+	}
+
+	ans := 0
+	for i := 0; i < (1 << m); i++ {
+		s := make(map[int]bool)
+
+		for j := 0; j < m; j++ {
+			if (i >> j & 1) == 1 {
+				for k := 0; k < len(sets[j]); k++ {
+					s[sets[j][k]] = true
+				}
+			}
+		}
+
+		if len(s) == n {
+			ans++
+		}
+	}
+	fmt.Println(ans)
 }
 
 func rec(k int) int {
