@@ -17,31 +17,41 @@ func main() {
 	n, m := ni2()
 	arr := nis(n)
 	brr := nis(m)
-	resa := make([]int, n)
-	resb := make([]int, m)
-	i, j := 0, 0
+	pa := make([]int, n)
+	pb := make([]int, m)
+
 	cur := 1
-	for i < len(arr) || j < len(brr) {
-		if i >= len(arr) {
-			resb[j] = cur
+	ia := 0
+	ib := 0
+	for {
+		if ia >= n {
+			if ib >= m {
+				break
+			}
+			pb[ib] = cur
+			ib++
 			cur++
-			j++
-		} else if j >= len(brr) {
-			resa[i] = cur
+		} else if ib >= m {
+			pa[ia] = cur
+			ia++
 			cur++
-			i++
-		} else if arr[i] > brr[j] {
-			resb[j] = cur
-			cur++
-			j++
 		} else {
-			resa[i] = cur
-			cur++
-			i++
+			a := arr[ia]
+			b := brr[ib]
+			if a < b {
+				pa[ia] = cur
+				cur++
+				ia++
+			} else {
+				pb[ib] = cur
+				cur++
+				ib++
+			}
 		}
 	}
-	fmt.Println(intSliceToString(resa))
-	fmt.Println(intSliceToString(resb))
+
+	fmt.Println(intSliceToString(pa))
+	fmt.Println(intSliceToString(pb))
 }
 
 func rec(k int) int {
