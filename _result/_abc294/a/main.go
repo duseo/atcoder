@@ -17,37 +17,12 @@ func main() {
 	n := ni()
 	res := make([]int, 0)
 	for i := 0; i < n; i++ {
-		x := ni()
-		if x%2 == 0 {
-			res = append(res, x)
+		tmp := ni()
+		if tmp%2 == 0 {
+			res = append(res, tmp)
 		}
 	}
 	fmt.Println(intSliceToString(res))
-}
-
-type point struct {
-	x int
-	y int
-}
-
-type vec struct {
-	x int
-	y float64
-}
-
-func fabs(x float64) float64 {
-	if x < 0 {
-		return -x
-	}
-	return x
-}
-
-func mapClone(src map[int]bool) map[int]bool {
-	dst := make(map[int]bool, len(src))
-	for k, v := range src {
-		dst[k] = v
-	}
-	return dst
 }
 
 func rec(k int) int {
