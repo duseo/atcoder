@@ -16,15 +16,16 @@ var wtr = bufio.NewWriter(os.Stdout)
 func main() {
 	h, w := ni2()
 	for i := 0; i < h; i++ {
-		arr := make([]byte, w)
+		line := make([]byte, w)
 		for j := 0; j < w; j++ {
-			tmp := ni()
-			arr[j] = byte(tmp + 'A' - 1)
-			if tmp == 0 {
-				arr[j] = '.'
+			tmp := ns()
+			res := '.'
+			if tmp != "0" {
+				res = rune('A' + atoi(tmp) - 1)
 			}
+			line[j] = byte(res)
 		}
-		fmt.Println(string(arr))
+		fmt.Println(string(line))
 	}
 }
 
