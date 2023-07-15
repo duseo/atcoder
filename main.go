@@ -14,9 +14,41 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, m := ni2()
-	x := tdm(n, m)
-	fmt.Println(x)
+	n, k := ni2()
+	total := 0
+	prefix := make(map[int]int)
+	for i := 0; i < n; i++ {
+		day, num := ni2()
+		prefix[day] -= num
+		total += num
+	}
+	cur := total
+	keys := make([]int, len(prefix))
+
+	i := 0
+	for k := range prefix {
+		keys[i] = k
+		i++
+	}
+	sort.Ints(keys)
+	if total <= k {
+		fmt.Println(1)
+		return
+	}
+
+	for _, i := range keys {
+		cur += prefix[i]
+		if cur <= k {
+			fmt.Println(i + 1)
+			return
+		}
+	}
+	fmt.Println(prefix)
+}
+
+type point struct {
+	x int
+	y int
 }
 
 func rec(k int) int {
@@ -226,6 +258,7 @@ func tdm(n, m int) [][]int {
 	return tmp
 }
 
+// region union find
 type dsu struct {
 	id    []int
 	sz    []int
@@ -273,4 +306,35 @@ func (uf dsu) union(p, q int) {
 		uf.sz[i] += uf.sz[j]
 	}
 	uf.count--
+}
+
+//endregion
+
+func hasbit(a int, n int) bool {
+	return (a>>uint(n))&1 == 1
+}
+
+func nthbit(a int, n int) int {
+	return int((a >> uint(n)) & 1)
+}
+
+func prefix2d(h, w int) [][]int {
+	arr := make([][]int, h)
+	first := nis(w)
+	for i := 1; i < w; i++ {
+		first[i] += first[i-1]
+	}
+	arr[0] = first
+	for i := 1; i < h; i++ {
+		tmp := nis(w)
+		for j := 1; j < w; j++ {
+			tmp[j] = tmp[j-1] + tmp[j]
+		}
+		for j := 0; j < w; j++ {
+			tmp[j] += arr[i-1][j]
+		}
+		arr[i] = tmp
+
+	}
+	return arr
 }

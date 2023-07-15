@@ -14,21 +14,52 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
+	h, w := ni2()
+	all := prefix2d(h, w)
+
 	q := ni()
 	for i := 0; i < q; i++ {
-		l, r := ni2()
+		a, b, c, d := ni4()
+		a--
+		b--
+		c--
+		d--
+		ul, ur, ll, lr := 0, 0, 0, all[c][d]
+		if a != 0 {
+			ur = all[a-1][d]
+		}
 
-		fmt.Println(l, r, a)
+		if b != 0 {
+			ll = all[c][b-1]
+		}
+
+		if a != 0 && b != 0 {
+			ul = all[a-1][b-1]
+		}
+
+		fmt.Println(lr - ur - ll + ul)
 	}
 }
 
-type point struct {
-	x int
-	y int
+func prefix2d(h, w int) [][]int {
+	arr := make([][]int, h)
+	first := nis(w)
+	for i := 1; i < w; i++ {
+		first[i] += first[i-1]
+	}
+	arr[0] = first
+	for i := 1; i < h; i++ {
+		tmp := nis(w)
+		for j := 1; j < w; j++ {
+			tmp[j] = tmp[j-1] + tmp[j]
+		}
+		for j := 0; j < w; j++ {
+			tmp[j] += arr[i-1][j]
+		}
+		arr[i] = tmp
+
+	}
+	return arr
 }
 
 func rec(k int) int {
@@ -296,25 +327,4 @@ func hasbit(a int, n int) bool {
 
 func nthbit(a int, n int) int {
 	return int((a >> uint(n)) & 1)
-}
-
-func prefix2d(h, w int) [][]int {
-	arr := make([][]int, h)
-	first := nis(w)
-	for i := 1; i < w; i++ {
-		first[i] += first[i-1]
-	}
-	arr[0] = first
-	for i := 1; i < h; i++ {
-		tmp := nis(w)
-		for j := 1; j < w; j++ {
-			tmp[j] = tmp[j-1] + tmp[j]
-		}
-		for j := 0; j < w; j++ {
-			tmp[j] += arr[i-1][j]
-		}
-		arr[i] = tmp
-
-	}
-	return arr
 }

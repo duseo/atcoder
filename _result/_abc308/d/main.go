@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"container/list"
 	"fmt"
 	"math"
 	"os"
@@ -14,16 +15,72 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
-	q := ni()
-	for i := 0; i < q; i++ {
-		l, r := ni2()
-
-		fmt.Println(l, r, a)
+	h, w := ni2()
+	m := make([][]byte, h)
+	for i := 0; i < h; i++ {
+		m[i] = []byte(ns())
 	}
+
+	snuke := make(map[byte]byte)
+	snuke['s'] = 'n'
+	snuke['n'] = 'u'
+	snuke['u'] = 'k'
+	snuke['k'] = 'e'
+	snuke['e'] = 's'
+
+	getNext := func(c byte) byte {
+		return snuke[c]
+	}
+
+	visited := make(map[point]bool)
+	pok := func(from, to point) bool {
+		if to.x >= 0 && to.x < h && to.y < w && to.y >= 0 && !visited[to] {
+			if getNext(m[from.x][from.y]) == m[to.x][to.y] {
+				visited[to] = true
+				return true
+			}
+		}
+		return false
+	}
+
+	p := point{0, 0}
+	if m[0][0] != 's' {
+		printyn(false)
+		return
+	}
+	isOk := false
+	q := list.New()
+	q.PushBack(p)
+	e := q.Front()
+	for e != nil {
+		t := e.Value.(point)
+		if t.x == h-1 && t.y == w-1 {
+			isOk = true
+		}
+
+		top := point{t.x - 1, t.y}
+		bot := point{t.x + 1, t.y}
+		rig := point{t.x, t.y + 1}
+		lef := point{t.x, t.y - 1}
+
+		if pok(t, top) {
+			q.PushBack(top)
+		}
+		if pok(t, bot) {
+			q.PushBack(bot)
+		}
+		if pok(t, rig) {
+			q.PushBack(rig)
+		}
+		if pok(t, lef) {
+			q.PushBack(lef)
+		}
+
+		e = e.Next()
+	}
+
+	printyn(isOk)
+
 }
 
 type point struct {

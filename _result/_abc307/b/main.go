@@ -14,21 +14,30 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
-	q := ni()
-	for i := 0; i < q; i++ {
-		l, r := ni2()
-
-		fmt.Println(l, r, a)
+	isPalindrome := func(x string) bool {
+		for i := 0; i < len(x)/2; i++ {
+			if x[i] != x[len(x)-i-1] {
+				return false
+			}
+		}
+		return true
 	}
-}
 
-type point struct {
-	x int
-	y int
+	n := ni()
+	arr := make([]string, n)
+	for i := 0; i < n; i++ {
+		arr[i] = ns()
+	}
+	for i := 0; i < n; i++ {
+		for j := 0; j < n; j++ {
+			if i != j && isPalindrome(arr[i]+arr[j]) {
+				printyn(true)
+				return
+			}
+		}
+	}
+	printyn(false)
+
 }
 
 func rec(k int) int {

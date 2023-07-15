@@ -14,16 +14,22 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
-	q := ni()
-	for i := 0; i < q; i++ {
-		l, r := ni2()
-
-		fmt.Println(l, r, a)
+	a := ns()
+	b := ns()
+	if strings.Contains("123", a) && strings.Contains("123", b) {
+		printyn(true)
+		return
 	}
+	if strings.Contains("456", a) && strings.Contains("456", b) {
+		printyn(true)
+		return
+	}
+	if strings.Contains("789", a) && strings.Contains("789", b) {
+		printyn(true)
+		return
+	}
+	printyn(false)
+	return
 }
 
 type point struct {

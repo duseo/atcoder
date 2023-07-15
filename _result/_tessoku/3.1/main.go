@@ -13,17 +13,22 @@ import (
 var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
+// #dp
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
-	q := ni()
-	for i := 0; i < q; i++ {
-		l, r := ni2()
+	n := ni()
+	a := nis(n - 1)
+	b := nis(n - 2)
+	dp := make(map[int]int)
+	dp[0] = 0
+	for i := 1; i < n; i++ {
+		if i == 1 {
+			dp[i] = dp[i-1] + a[i-1]
+			continue
+		}
 
-		fmt.Println(l, r, a)
+		dp[i] = min(dp[i-1]+a[i-1], dp[i-2]+b[i-2])
 	}
+	fmt.Println(dp[n-1])
 }
 
 type point struct {

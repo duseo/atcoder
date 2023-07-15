@@ -14,21 +14,29 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
-	q := ni()
-	for i := 0; i < q; i++ {
-		l, r := ni2()
-
-		fmt.Println(l, r, a)
+	h, w, n := ni3()
+	all := tdm(h, w)
+	for i := 0; i < n; i++ {
+		x1, y1, x2, y2 := ni4()
+		x1--
+		y1--
+		x2--
+		y2--
+		all[x1][y1]++
+		if y2 < w {
+			all[x1][y2+1]--
+		}
+		if x2 < h {
+			all[x2+1][y1]--
+		}
+		if y2 < w && x2 < h {
+			all[x2+1][y2+1]++
+		}
 	}
-}
-
-type point struct {
-	x int
-	y int
+	tmp := prefix2da(all)
+	for i := 0; i < len(tmp); i++ {
+		fmt.Println(intSliceToString(tmp[i]))
+	}
 }
 
 func rec(k int) int {
@@ -315,6 +323,21 @@ func prefix2d(h, w int) [][]int {
 		}
 		arr[i] = tmp
 
+	}
+	return arr
+}
+
+func prefix2da(arr [][]int) [][]int {
+	for i := 1; i < len(arr[0]); i++ {
+		arr[0][i] += arr[0][i-1]
+	}
+	for i := 1; i < len(arr); i++ {
+		for j := 1; j < len(arr[0]); j++ {
+			arr[i][j] = arr[i][j-1] + arr[i][j]
+		}
+		for j := 0; j < len(arr[0]); j++ {
+			arr[i][j] += arr[i-1][j]
+		}
 	}
 	return arr
 }

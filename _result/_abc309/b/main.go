@@ -14,15 +14,77 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
-	q := ni()
-	for i := 0; i < q; i++ {
-		l, r := ni2()
+	n := ni()
+	a := tdm(n, n)
+	for i := 0; i < n; i++ {
+		s := ns()
+		for j := 0; j < len(s); j++ {
+			a[i][j] = atoi(string(s[j]))
+		}
+	}
 
-		fmt.Println(l, r, a)
+	nextCoords := func(curCoords point) point {
+		x := curCoords.x
+		y := curCoords.y
+
+		//u
+		if x == 0 && y < n-1 {
+			return point{0, y + 1}
+		}
+		if x == 0 && y == n-1 {
+			return point{1, n - 1}
+		}
+		//r
+		if x < n-1 && y == n-1 {
+			return point{x + 1, n - 1}
+		}
+		if x == n-1 && y == n-1 {
+			return point{n - 1, n - 2}
+		}
+		//d
+		if x == n-1 && y > 0 {
+			return point{n - 1, y - 1}
+		}
+		if x == n-1 && y == 0 {
+			return point{x - 1, 0}
+		}
+		//l
+		if y == 0 {
+			return point{x - 1, 0}
+		}
+		return point{0, 0}
+
+	}
+
+	abc := make([]int, 0)
+	abc = append(abc, a[0][0])
+
+	curCoords := point{0, 1}
+	for curCoords.x != 0 || curCoords.y != 0 {
+		next := nextCoords(curCoords)
+		abc = append(abc, a[curCoords.x][curCoords.y])
+		curCoords = next
+	}
+
+	last := abc[len(abc)-1]
+	t2 := make([]int, len(abc))
+	for i := 1; i < len(abc); i++ {
+		t2[i] = abc[i-1]
+	}
+	t2[0] = last
+
+	ind := 0
+	curCoords = point{0, 1}
+	for curCoords.x != 0 || curCoords.y != 0 {
+		next := nextCoords(curCoords)
+		a[curCoords.x][curCoords.y] = t2[ind+1]
+		curCoords = next
+		ind++
+	}
+	a[0][0] = last
+
+	for i := 0; i < n; i++ {
+		fmt.Println(strings.Replace(intSliceToString(a[i]), " ", "", -1))
 	}
 }
 

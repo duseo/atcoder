@@ -14,28 +14,40 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
-	q := ni()
-	for i := 0; i < q; i++ {
-		l, r := ni2()
+	arr := nis(8)
+	prev := arr[0]
 
-		fmt.Println(l, r, a)
+	ok := func(x int) bool {
+		if x < 100 || x > 675 {
+			return false
+		}
+
+		if x%25 != 0 {
+			return false
+		}
+
+		return true
 	}
-}
 
-type point struct {
-	x int
-	y int
+	if !ok(prev) {
+		printyn(false)
+		return
+	}
+
+	for i := 1; i < 8; i++ {
+		if !ok(arr[i]) || arr[i] < prev {
+			printyn(false)
+			return
+		}
+		prev = arr[i]
+	}
+	printyn(true)
 }
 
 func rec(k int) int {
 	if k == 0 {
 		return 1
 	}
-
 	return k * rec(k-1)
 }
 

@@ -14,21 +14,42 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
-	q := ni()
-	for i := 0; i < q; i++ {
-		l, r := ni2()
-
-		fmt.Println(l, r, a)
+	n, m := ni2()
+	cs := make([]string, n)
+	ds := make([]string, m)
+	ps := make([]int, m)
+	for i := 0; i < n; i++ {
+		cs[i] = ns()
 	}
-}
 
-type point struct {
-	x int
-	y int
+	for i := 0; i < m; i++ {
+		ds[i] = ns()
+	}
+
+	defaultPrice := ni()
+	for i := 0; i < m; i++ {
+		ps[i] = ni()
+	}
+
+	prices := make(map[string]int)
+	for i := 0; i < len(ds); i++ {
+		prices[ds[i]] = ps[i]
+	}
+
+	getPrice := func(s string) int {
+		val, ok := prices[s]
+		if ok {
+			return val
+		}
+		return defaultPrice
+	}
+
+	res := 0
+	for i := 0; i < n; i++ {
+		res += getPrice(cs[i])
+	}
+	fmt.Println(res)
+
 }
 
 func rec(k int) int {

@@ -14,21 +14,32 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
+	n := ni()
+	arr := nis(n)
+	left := make([]int, n)
+	right := make([]int, n)
+	left[0] = arr[0]
+	right[n-1] = arr[n-1]
+	for i := 1; i < len(arr); i++ {
+		left[i] = max(arr[i], left[i-1])
+	}
+	for i := n - 2; i >= 0; i-- {
+		right[i] = max(arr[i], right[i+1])
+	}
 	q := ni()
 	for i := 0; i < q; i++ {
 		l, r := ni2()
-
-		fmt.Println(l, r, a)
+		l--
+		r--
+		leftmax, rightmax := 0, 0
+		if l != 0 {
+			leftmax = left[l-1]
+		}
+		if r != n-1 {
+			rightmax = right[r+1]
+		}
+		fmt.Println(max(leftmax, rightmax))
 	}
-}
-
-type point struct {
-	x int
-	y int
 }
 
 func rec(k int) int {

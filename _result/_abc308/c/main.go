@@ -14,21 +14,30 @@ var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
-	q := ni()
-	for i := 0; i < q; i++ {
-		l, r := ni2()
-
-		fmt.Println(l, r, a)
+	n := ni()
+	ps := make([]person, n)
+	for i := 1; i <= n; i++ {
+		a, b := ni2()
+		tmp := person{i, a, b}
+		ps[i-1] = tmp
 	}
+
+	sort.SliceStable(ps, func(i, j int) bool {
+		return ps[i].b*ps[j].a < ps[i].a*ps[j].b
+	})
+
+	res := make([]int, n)
+	for i := 0; i < n; i++ {
+		res[i] = ps[i].index
+	}
+
+	fmt.Println(intSliceToString(res))
 }
 
-type point struct {
-	x int
-	y int
+type person struct {
+	index int
+	a     int
+	b     int
 }
 
 func rec(k int) int {
