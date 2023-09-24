@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "t4GKs9Zm9f94Omw3EIghUYfK4V/kkCqx3QekeATlF0LjHD49uAdDP3uN9RF6nbRn5/WqZVGmXRlLrWw2kPvSQA==",
+  "success": true,
+  "projectFilePath": "/Users/mariusroser/atcoder/fsharp/fsharp.fsproj",
+  "expectedPackageFiles": [
+    "/Users/mariusroser/.nuget/packages/fsharp.core/7.0.200/fsharp.core.7.0.200.nupkg.sha512"
+  ],
+  "logs": []
+}

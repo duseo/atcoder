@@ -14,6 +14,7 @@ import (
 var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
+// #bfs
 func main() {
 	n1, n2, m := ni3()
 	g := make(map[int]map[int]bool)

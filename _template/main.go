@@ -42,6 +42,12 @@ func rec(k int) int {
 // ==================================================
 // init
 // ==================================================
+const inf = math.MaxInt64
+const mod1000000007 = 1000000007
+const mod998244353 = 998244353
+const mod = mod998244353
+
+var mpowcache map[[3]int]int
 
 func init() {
 	sc.Buffer([]byte{}, math.MaxInt64)
@@ -317,4 +323,67 @@ func prefix2d(h, w int) [][]int {
 
 	}
 	return arr
+}
+
+// ==================================================
+// mod
+// ==================================================
+
+func madd(a, b int) int {
+	a += b
+	if a >= mod || a <= -mod {
+		a %= mod
+	}
+	if a < 0 {
+		a += mod
+	}
+	return a
+}
+
+func mmul(a, b int) int {
+	return a * b % mod
+}
+
+func mdiv(a, b int) int {
+	a %= mod
+	return a * minvfermat(b, mod) % mod
+}
+
+func mpow(a, n, m int) int {
+	if v, ok := mpowcache[[3]int{a, n, m}]; ok {
+		return v
+	}
+	fa := a
+	fn := n
+	if m == 1 {
+		return 0
+	}
+	r := 1
+	for n > 0 {
+		if n&1 == 1 {
+			r = r * a % m
+		}
+		a, n = a*a%m, n>>1
+	}
+	mpowcache[[3]int{fa, fn, m}] = r
+	return r
+}
+
+func minv(a, m int) int {
+	p, x, u := m, 1, 0
+	for p != 0 {
+		t := a / p
+		a, p = p, a-t*p
+		x, u = u, x-t*u
+	}
+	x %= m
+	if x < 0 {
+		x += m
+	}
+	return x
+}
+
+// m only allow prime number
+func minvfermat(a, m int) int {
+	return mpow(a, m-2, mod)
 }
