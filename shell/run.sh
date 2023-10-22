@@ -11,3 +11,7 @@ if test "$mode" = "cpp"; then
   g++ -D=__LOCAL -o main main.cpp
   ./main
 fi
+
+if test "$mode" = "fsharp"; then
+    "dotnet run --project ./fsharp/fsharp.fsproj"
+fi

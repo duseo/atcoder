@@ -9,3 +9,7 @@ fi
 if test "$mode" = "cpp"; then
   oj s main.cpp
 fi
+
+if test "$mode" = "fsharp"; then
+  oj s main.cpp
+fi

@@ -4,25 +4,29 @@ import (
 	"bufio"
 	"fmt"
 	"math"
+	"math/rand"
 	"os"
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 )
 
 var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-	n, k := ni2()
-	k++
-	k--
-	a := nis(n)
-	q := ni()
-	for i := 0; i < q; i++ {
-		l, r := ni2()
+	rand.Seed(time.Now().UnixNano()) // Seed the random number generator
 
-		fmt.Println(l, r, a)
+	for {
+		n1 := rand.Intn(90) + 10
+		n2 := rand.Intn(90) + 10
+		fmt.Println(n1, n2)
+		ans := ni()
+		fmt.Println(n1 * n2)
+		if ans == -1 {
+			break
+		}
 	}
 }
 

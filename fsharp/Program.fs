@@ -1,2 +1,7 @@
-﻿// For more information see https://aka.ms/fsharp-console-apps
-printfn "Hello from F#"
+﻿open System
+
+[<EntryPoint>]
+let main args =
+    [1..5]
+    |> Seq.iter (printfn "%d")
+    0
