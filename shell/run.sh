@@ -12,6 +12,6 @@ if test "$mode" = "cpp"; then
   ./main
 fi
 
-if test "$mode" = "fsharp"; then
-    "dotnet run --project ./fsharp/fsharp.fsproj"
+if test "$mode" = "cs"; then
+    dotnet run --project atcoder.csproj
 fi

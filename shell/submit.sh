@@ -10,10 +10,6 @@ if test "$mode" = "cpp"; then
   oj s main.cpp
 fi
 
-if test "$mode" = "fsharp"; then
-  oj s main.cpp
-fi
-
-if test "$mode" = "csharp"; then
-  oj s ./csharp Program.cs
+if test "$mode" = "cs"; then
+  oj s Program.cs -l 5003
 fi

@@ -11,6 +11,10 @@ if test "$mode" = "cpp"; then
   sendfile="main.cpp"
 fi
 
+if test "$mode" = "cs"; then
+  sendfile="Program.cs"
+fi
+
 echo -e CONTEST?
 read dir
 echo -n QUESTION?

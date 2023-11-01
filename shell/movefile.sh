@@ -11,6 +11,10 @@ if test "$mode" = "cpp"; then
   sendfile="main.cpp"
 fi
 
+if test "$mode" = "cs"; then
+  sendfile="Template.cs"
+fi
+
 dir=$(cat ./contest)
 echo -e CONTEST: $dir
 echo -n QUESTION?
@@ -20,4 +24,3 @@ mv -i $sendfile _result/_$dir/$q
 git add _result/_$dir/$q/$sendfile
 git commit -m "$dir $q"
 cp -i _template/$sendfile ./$sendfile
-
