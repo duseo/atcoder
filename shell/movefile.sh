@@ -12,7 +12,7 @@ if test "$mode" = "cpp"; then
 fi
 
 if test "$mode" = "cs"; then
-  sendfile="Template.cs"
+  sendfile="Program.cs"
 fi
 
 dir=$(cat ./contest)

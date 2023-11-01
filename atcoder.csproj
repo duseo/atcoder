@@ -9,6 +9,15 @@
 
   <ItemGroup>
     <Compile Remove="_template\Program.cs" />
+    <Compile Remove="_result\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="_result\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="_result\**" />
   </ItemGroup>
 
 </Project>
