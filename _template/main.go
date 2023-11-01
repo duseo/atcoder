@@ -17,16 +17,22 @@ var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
 	rand.Seed(time.Now().UnixNano()) // Seed the random number generator
+	n1 := rand.Intn(90) + 10
+	n2 := rand.Intn(90) + 10
 
 	for {
-		n1 := rand.Intn(90) + 10
-		n2 := rand.Intn(90) + 10
 		fmt.Println(n1, n2)
 		ans := ni()
-		fmt.Println(n1 * n2)
-		if ans == -1 {
-			break
+		for ans != n1*n2 {
+			if ans == -1 {
+				break
+			}
+			printyn(false)
+			ans = ni()
 		}
+		printyn(true)
+		n1 = rand.Intn(90) + 10
+		n2 = rand.Intn(90) + 10
 	}
 }
 

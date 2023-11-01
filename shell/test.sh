@@ -15,3 +15,7 @@ fi
 if test "$mode" = "fsharp"; then
   oj t -c "dotnet run --project ./fsharp/fsharp.fsproj"
 fi
+
+if test "$mode" = "csharp"; then
+  oj t -c "dotnet run --project ./csharp/csharp.csproj"
+fi

@@ -4,31 +4,28 @@ import (
 	"bufio"
 	"fmt"
 	"math"
-	"math/rand"
 	"os"
 	"sort"
 	"strconv"
 	"strings"
-	"time"
 )
 
 var sc = bufio.NewScanner(os.Stdin)
 var wtr = bufio.NewWriter(os.Stdout)
 
 func main() {
-
-	rand.Seed(time.Now().UnixNano()) // Seed the random number generator
-
-	for {
-		n1 := rand.Intn(90) + 10
-		n2 := rand.Intn(90) + 10
-		fmt.Println(n1, n2)
-		ans := ni()
-		printyn(ans == n1*n2)
-		if ans == -1 {
-			break
-		}
+	n := ni2()
+	r := ns()
+	c := ns()
+	if n == 5 {
+		print5()
+		return
 	}
+	if n == 4 {
+		print4()
+		return
+	}
+
 }
 
 type point struct {

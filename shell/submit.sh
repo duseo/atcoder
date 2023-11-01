@@ -13,3 +13,7 @@ fi
 if test "$mode" = "fsharp"; then
   oj s main.cpp
 fi
+
+if test "$mode" = "csharp"; then
+  oj s ./csharp Program.cs
+fi
