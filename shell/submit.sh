@@ -11,5 +11,7 @@ if test "$mode" = "cpp"; then
 fi
 
 if test "$mode" = "cs"; then
-  oj s Program.cs -l 5003
+  /bin/bash ./shell/bundle.sh
+  oj s Submit.cs -l 5003
+  rm Submit.cs
 fi
