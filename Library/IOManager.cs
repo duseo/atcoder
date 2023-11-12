@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -18,6 +19,7 @@ public class IOManager : IDisposable
 
     public IOManager(Stream input, Stream output)
     {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
         _reader = new BinaryReader(input);
         _writer = new StreamWriter(output) { AutoFlush = false };
     }
@@ -107,6 +109,7 @@ public class IOManager : IDisposable
         {
             span[i++] = c;
         } while (IsValidChar(c = ReadAscii()));
+        Console.WriteLine(span.ToString());
 
         return span.Slice(0, i);
     }
