@@ -9,12 +9,14 @@ public class ModularArithmetic
         _mod = mod;
     }
     
-    public void Add(ref int a, int b)
+    public int Add(int a, int b)
     {
         a += b;
         if (a > _mod)
         {
             a -= _mod;
         }
+
+        return a;
     }
 }

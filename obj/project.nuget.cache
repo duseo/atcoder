@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "stpitb1UvSy5aGQCEs74xWzRmlY+doIgecwsPJloqdZNDNeNTFjS8CV9T7jypy2FS3jk0Tr2EJcg5Nesc15nww==",
+  "dgSpecHash": "6KQCUBczCdoPjcwgNNBfV7LL55yG60gh2uZkOwCQU/cW/YEChUOgGD02DsVepCMMEqc4f02RiB4+omqwwVknCQ==",
   "success": true,
   "projectFilePath": "/Users/mariusroser/atcoder/atcoder.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/mariusroser/.nuget/packages/microsoft.netcore.app.ref/7.0.14/microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
+    "/Users/mariusroser/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.14/microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512",
+    "/Users/mariusroser/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.14/microsoft.netcore.app.host.osx-arm64.7.0.14.nupkg.sha512"
+  ],
   "logs": []
 }

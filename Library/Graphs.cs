@@ -71,6 +71,39 @@ public class BasicGraph : IGraph<BasicEdge>
     public void AddEdge(int from, int to) => _edges[from].Add(to);
     public void AddNode() => _edges.Add(new List<BasicEdge>());
 
+    public int TreeSize(int start)
+    {
+              var visited = new HashSet<int>();
+      
+              Func<int, HashSet<int>, int> dfs = null;
+              dfs = delegate(int current, HashSet<int> visited)
+              {
+                  if (_edges[current].Count == 1)
+                  {
+                      visited.Add(current);
+                      return 1;
+                  }
+
+
+                  visited.Add(current);
+
+                  var tmp = 0;
+                  foreach (var edge in _edges[current])
+                  {
+                      if (!visited.Contains(edge.To) && edge.To != 0)
+                      {
+                          tmp += dfs(edge.To, visited);
+                      }
+                  }
+
+                  return tmp + 1;
+              };
+              
+              return dfs(start, visited);
+    } 
+    
+    
+    
     public bool IsBipartite()
     {
         var visited = new HashSet<int>();

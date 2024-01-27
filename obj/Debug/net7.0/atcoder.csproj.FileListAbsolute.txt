@@ -3,7 +3,6 @@
 /Users/mariusroser/atcoder/bin/Debug/net7.0/atcoder.runtimeconfig.json
 /Users/mariusroser/atcoder/bin/Debug/net7.0/atcoder.dll
 /Users/mariusroser/atcoder/bin/Debug/net7.0/atcoder.pdb
-/Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.csproj.AssemblyReference.cache
 /Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.GeneratedMSBuildEditorConfig.editorconfig
 /Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.AssemblyInfoInputs.cache
 /Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.AssemblyInfo.cs
@@ -13,3 +12,4 @@
 /Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.pdb
 /Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.genruntimeconfig.cache
 /Users/mariusroser/atcoder/obj/Debug/net7.0/ref/atcoder.dll
+/Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.sourcelink.json

@@ -7,6 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <NoWarn>1701;1702;8600;8602</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="_template\Program.cs" />
     <Compile Remove="_result\**" />

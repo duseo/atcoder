@@ -221,6 +221,15 @@ public class IOManager : IDisposable
             Console.WriteLine();
         }
     }
+    
+    public void WriteArray<T>(T[] arr)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+                Console.Write(arr[i] + " ");
+        }
+        Console.WriteLine();
+    }
 
     public void Flush() => _writer.Flush();
 
