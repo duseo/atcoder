@@ -1,10 +1,3 @@
-
-go:
-	echo "go" > .mode
-
-cpp:
-	echo "cpp" > .mode
-
 run:
 	./shell/run.sh
 
@@ -45,3 +38,5 @@ load:
 login:
 	oj login https://atcoder.jp
 
+tc:
+	./shell/addtestcase.sh

@@ -24,8 +24,4 @@
     <None Remove="_result\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="test\" />
-  </ItemGroup>
-
 </Project>

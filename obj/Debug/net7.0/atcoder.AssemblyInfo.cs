@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("atcoder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7dde8a12b13a40c6f02744215eb80c3540be95c0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1111184d1e5bf0c67068d34337d0576a9f26e411")]
 [assembly: System.Reflection.AssemblyProductAttribute("atcoder")]
 [assembly: System.Reflection.AssemblyTitleAttribute("atcoder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
