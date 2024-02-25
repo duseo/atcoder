@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "6KQCUBczCdoPjcwgNNBfV7LL55yG60gh2uZkOwCQU/cW/YEChUOgGD02DsVepCMMEqc4f02RiB4+omqwwVknCQ==",
+  "dgSpecHash": "i6LbIKkb/9FPuMd248Ex4Ub1Ou5poY1AJ062qylfrwkNbEaVIi/tLikQJT5nu0qhqFunxTEuvyA4yG4Y/56HIw==",
   "success": true,
   "projectFilePath": "/Users/mariusroser/atcoder/atcoder.csproj",
   "expectedPackageFiles": [
-    "/Users/mariusroser/.nuget/packages/microsoft.netcore.app.ref/7.0.14/microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
-    "/Users/mariusroser/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.14/microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512",
-    "/Users/mariusroser/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.14/microsoft.netcore.app.host.osx-arm64.7.0.14.nupkg.sha512"
+    "/Users/mariusroser/.nuget/packages/dumpify/0.6.5/dumpify.0.6.5.nupkg.sha512",
+    "/Users/mariusroser/.nuget/packages/spectre.console/0.48.0/spectre.console.0.48.0.nupkg.sha512",
+    "/Users/mariusroser/.nuget/packages/system.memory/4.5.5/system.memory.4.5.5.nupkg.sha512"
   ],
   "logs": []
 }

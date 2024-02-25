@@ -102,8 +102,6 @@ public class BasicGraph : IGraph<BasicEdge>
               return dfs(start, visited);
     } 
     
-    
-    
     public bool IsBipartite()
     {
         var visited = new HashSet<int>();
@@ -171,4 +169,34 @@ public class WeightedGraph : IGraph<WeightedEdge>
 
     public void AddEdge(int from, int to, long weight) => _edges[from].Add(new WeightedEdge(to, weight));
     public void AddNode() => _edges.Add(new List<WeightedEdge>());
+    
+    public long[] Dijkstra(int source)
+    {
+        var distances = new long[NodeCount+5];
+        Array.Fill(distances, long.MaxValue);
+        distances[source] = 0;
+
+        var priorityQueue = new PriorityQueue<int, long>();
+        priorityQueue.Enqueue(source, 0);
+
+        while (priorityQueue.Count > 0)
+        {
+            int currentNode = priorityQueue.Dequeue();
+            long currentDist = distances[currentNode]; 
+
+            foreach (var (nextNode, weight) in this[currentNode])
+            {
+                var nextDist = currentDist + weight;
+
+                if (nextDist < distances[nextNode])
+                {
+                    distances[nextNode] = nextDist;
+                    priorityQueue.Enqueue(nextNode, nextDist);
+                }
+            }
+        }
+
+        return distances;
+    }
+
 }

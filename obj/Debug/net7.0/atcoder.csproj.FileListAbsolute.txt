@@ -13,3 +13,7 @@
 /Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.genruntimeconfig.cache
 /Users/mariusroser/atcoder/obj/Debug/net7.0/ref/atcoder.dll
 /Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.sourcelink.json
+/Users/mariusroser/atcoder/bin/Debug/net7.0/Dumpify.dll
+/Users/mariusroser/atcoder/bin/Debug/net7.0/Spectre.Console.dll
+/Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.csproj.AssemblyReference.cache
+/Users/mariusroser/atcoder/obj/Debug/net7.0/atcoder.csproj.Up2Date
