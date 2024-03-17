@@ -19,3 +19,7 @@ fi
 if test "$mode" = "cs"; then
   oj t -c "dotnet run --project atcoder.csproj"
 fi
+
+if test "$mode" = "py"; then
+  oj t -c "python3 main.py"
+fi

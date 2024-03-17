@@ -1,7 +1,7 @@
 namespace Library;
 
-public interface IOracle<TMonoid>
+public interface IMonoid<T>
 {
-    TMonoid IdentityElement { get; }
-    TMonoid Operate(TMonoid a, TMonoid b);
+    T IdentityElement { get; }
+    T Operate(T a, T b);
 }

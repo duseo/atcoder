@@ -1,127 +1,106 @@
+using System.ComponentModel.DataAnnotations;
+//using Dumpify;
+
 namespace Library;
 
-public class SegmentTree<TMonoid>
+public class SegmentTree<T>
 {
-    public int Length { get; }
-    private readonly IOracle<TMonoid> _oracle;
-    private readonly TMonoid[] _data;
-    private readonly int _log;
-    private readonly int _dataSize;
+    private T[] _data;
+    private readonly IMonoid<T> _monoid;
+    private int _size;
 
-    public SegmentTree(IReadOnlyCollection<TMonoid> source, IOracle<TMonoid> oracle) : this(source.Count, oracle)
+    // Dumpify
+    public T[] Data => _data;
+    
+    public SegmentTree(int n, IMonoid<T> monoid)
     {
-        var idx = _dataSize;
-        foreach (var value in source) _data[idx++] = value;
-        for (var i = _dataSize - 1; i >= 1; i--) Update(i);
-    }
-
-    public SegmentTree(int length, IOracle<TMonoid> oracle)
-    {
-        if (length < 0) throw new ArgumentOutOfRangeException(nameof(length));
-        Length = length;
-        _oracle = oracle;
-        while (1 << _log < Length) _log++;
-        _dataSize = 1 << _log;
-        _data = new TMonoid[_dataSize << 1];
-        Array.Fill(_data, oracle.IdentityElement);
-    }
-
-    public void Set(int index, TMonoid value)
-    {
-        if (index < 0 || Length <= index) throw new ArgumentOutOfRangeException(nameof(index));
-        index += _dataSize;
-        _data[index] = value;
-        for (var i = 1; i <= _log; i++) Update(index >> i);
-    }
-
-    public TMonoid Get(int index)
-    {
-        if (index < 0 || Length <= index) throw new ArgumentOutOfRangeException(nameof(index));
-        return _data[index + _dataSize];
-    }
-
-    public TMonoid Query(int left, int right)
-    {
-        if (left < 0 || right < left || Length < right) throw new ArgumentOutOfRangeException();
-        var (sml, smr) = (_oracle.IdentityElement, _oracle.IdentityElement);
-        left += _dataSize;
-        right += _dataSize;
-        while (left < right)
+        _monoid = monoid;
+        _size = 1;
+        while (_size < n)
         {
-            if ((left & 1) == 1) sml = _oracle.Operate(sml, _data[left++]);
-            if ((right & 1) == 1) smr = _oracle.Operate(_data[--right], smr);
-            left >>= 1;
-            right >>= 1;
+            _size *= 2;
         }
 
-        return _oracle.Operate(sml, smr);
-    }
+        _data = new T[_size * 2];
 
-    public TMonoid QueryToAll() => _data[1];
-
-    public int MaxRight(int left, Func<TMonoid, bool> predicate)
-    {
-        if (left < 0 || Length < left) throw new ArgumentOutOfRangeException(nameof(left));
-        if (predicate is null) throw new ArgumentNullException(nameof(predicate));
-        if (!predicate(_oracle.IdentityElement)) throw new ArgumentException(nameof(predicate));
-        if (left == Length) return Length;
-        left += _dataSize;
-        var sm = _oracle.IdentityElement;
-        do
+        for (int i = 0; i < _size * 2; i++)
         {
-            while ((left & 1) == 0) left >>= 1;
-            if (!predicate(_oracle.Operate(sm, _data[left])))
-            {
-                while (left < _dataSize)
-                {
-                    left <<= 1;
-                    var tmp = _oracle.Operate(sm, _data[left]);
-                    if (!predicate(tmp)) continue;
-                    sm = tmp;
-                    left++;
-                }
-
-                return left - _dataSize;
-            }
-
-            sm = _oracle.Operate(sm, _data[left]);
-            left++;
-        } while ((left & -left) != left);
-
-        return Length;
+            _data[i] = _monoid.IdentityElement;
+        }
     }
 
-    public int MinLeft(int right, Func<TMonoid, bool> predicate)
+    /// <summary>
+    /// Sets the value at position <paramref name="index"/> to <paramref name="value"/>
+    /// </summary>
+    public void Update(int index, T value)
     {
-        if (right < 0 || Length < right) throw new ArgumentOutOfRangeException(nameof(right));
-        if (predicate is null) throw new ArgumentNullException(nameof(predicate));
-        if (!predicate(_oracle.IdentityElement)) throw new ArgumentException(nameof(predicate));
-        if (right == 0) return 0;
-        right += _dataSize;
-        var sm = _oracle.IdentityElement;
-        do
+        // The segment tree has the following structure:
+        // -----1-----
+        // --2-----3--
+        // -4-5---6-7-
+        // ...which is why + Length - 1 is necessary (the values are updated in the lowest row)
+        // In this example, size = 4 
+        index = index + _size - 1;
+        _data[index] = value;
+
+        while (index >= 2)
         {
-            right--;
-            while (right > 1 && (right & 1) == 1) right >>= 1;
-            if (!predicate(_oracle.Operate(_data[right], sm)))
-            {
-                while (right < _dataSize)
-                {
-                    right = (right << 1) + 1;
-                    var tmp = _oracle.Operate(_data[right], sm);
-                    if (!predicate(tmp)) continue;
-                    sm = tmp;
-                    right--;
-                }
-
-                return right + 1 - _dataSize;
-            }
-
-            sm = _oracle.Operate(_data[right], sm);
-        } while ((right & -right) != right);
-
-        return 0;
+            index /= 2;
+            _data[index] = _monoid.Operate(_data[index * 2], _data[index * 2 + 1]);
+        }
     }
 
-    private void Update(int k) => _data[k] = _oracle.Operate(_data[k << 1], _data[(k << 1) + 1]);
+    public T Query(int rangeStart, int rangeEnd)
+    {
+        return Query(rangeStart, rangeEnd, 1, _size + 1, 1);
+    }
+
+    //Fehler
+    private T Query(int l, int r, int a, int b, int u)
+    {
+        if (r <= a || b <= l)
+        {
+            return _monoid.IdentityElement;
+        }
+
+        if (l <= a && b <= r)
+        {
+            return _data[u];
+        }
+
+        int m = (a + b) / 2;
+        var AnswerL = Query(l, r, a, m, u * 2);
+        var AnswerR = Query(l, r, m, b, u * 2 + 1);
+        return _monoid.Operate(AnswerL, AnswerR);
+    }
+    
+    public void PrintTree()
+    {
+        var levels = new List<List<string>>();
+        CollectLevels(1, 0, _size, 0, levels);
+
+        for (int i = 0; i < levels.Count; i++)
+        {
+            //levels[i].Dump();
+        }
+    }
+
+    private void CollectLevels(int index, int start, int end, int depth, List<List<string>> levels)
+    {
+        if (index >= _data.Length) return;
+
+        while (levels.Count <= depth)
+        {
+            levels.Add(new List<string>());
+        }
+
+        int mid = (start + end) / 2;
+        if (index * 2 < _data.Length) CollectLevels(index * 2, start, mid, depth + 1, levels);
+
+        levels[depth].Add($"[{start}, {end}):{_data[index]}");
+
+        if (index * 2 + 1 < _data.Length) CollectLevels(index * 2 + 1, mid, end, depth + 1, levels);
+    }
+    
+
 }

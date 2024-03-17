@@ -15,3 +15,7 @@ fi
 if test "$mode" = "cs"; then
     dotnet run --project atcoder.csproj
 fi
+
+if test "$mode" = "py"; then
+    python3 main.py
+fi

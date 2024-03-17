@@ -10,6 +10,10 @@ if test "$mode" = "cpp"; then
   oj s main.cpp
 fi
 
+if test "$mode" = "py"; then
+  oj s main.py -l 5055
+fi
+
 if test "$mode" = "cs"; then
   /bin/bash ./shell/bundle.sh
   oj s Submit.cs -l 5003

@@ -19,4 +19,9 @@ public class ModularArithmetic
 
         return a;
     }
+
+    public long DivideCeiling(long a, long b)
+    {
+        return (a >= 0 ? a+b-1 : a)/b;
+    }
 }
